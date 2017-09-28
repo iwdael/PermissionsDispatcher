@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="onpermission_gray">#dadada</color>
+    <color name="onpermission_attention_title">#616161</color>
+    <color name="onpermission_attention_content">#8c8c8c</color>
+</resources>
