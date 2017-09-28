@@ -1,0 +1,26 @@
+[versions]
+agp = "8.5.1"
+kotlin = "1.9.0"
+jetbrainsKotlinJvm = "1.9.0"
+kotlinpoetKsp = "1.18.1"
+kotlinsymbolprocessor = "0.0.1"
+ksp = "1.9.0-1.0.11"
+coreKtx = "1.13.0"
+lifecycleRuntimeKtx = "2.6.2"
+appcompat = "1.7.0"
+symbolProcessingApi = "2.0.10-1.0.24"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinsymbolprocessor = { module = "com.iwdael:kotlinsymbolprocessor", version.ref = "kotlinsymbolprocessor" }
+symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "symbolProcessingApi" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
