@@ -2,6 +2,8 @@ package com.absurd.onpermission;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class OnPermission implements PermissionDialogListener {
     private Activity mActivity;
     private PermissionListener mListener;
     private List<Permission> mNewPermission;
-
+    private Handler mainHandler=new Handler(Looper.getMainLooper());
     public OnPermission(Activity mActivity) {
         this.mActivity = mActivity;
         mNewPermission = new ArrayList<>();
@@ -86,7 +88,13 @@ public class OnPermission implements PermissionDialogListener {
     }
 
     @Override
-    public void onCancel(String permission) {
-        mListener.onAuthorize(permission, false);
+    public void onCancel(final String permission) {
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mListener.onAuthorize(permission, false);
+            }
+        });
+
     }
 }
