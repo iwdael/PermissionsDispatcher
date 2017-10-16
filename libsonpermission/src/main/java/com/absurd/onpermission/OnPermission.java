@@ -87,6 +87,6 @@ public class OnPermission implements PermissionDialogListener {
 
     @Override
     public void onCancel(String permission) {
-
+        mListener.onAuthorize(permission, false);
     }
 }
