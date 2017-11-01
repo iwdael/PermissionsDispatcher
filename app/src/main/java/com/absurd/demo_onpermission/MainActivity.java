@@ -1,10 +1,12 @@
 package com.absurd.demo_onpermission;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.absurd.onpermission.OnPermission;
 import com.absurd.onpermission.Permission;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
         };
         onPermission.authorize(permissions1);
 
-
     }
 
 
@@ -42,6 +43,21 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
 
     @Override
     public void onAuthorize(String permission, boolean result) {
+
         Log.v("TAG", "------>>" + permission + "--------->>" + result);
+        if (!result) {
+            Toast.makeText(MainActivity.this,"3 back",Toast.LENGTH_SHORT).show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                        finish();
+                        } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).run();
+        }
     }
 }

@@ -20,7 +20,8 @@ public class OnPermission implements PermissionDialogListener {
     private Activity mActivity;
     private PermissionListener mListener;
     private List<Permission> mNewPermission;
-    private Handler mainHandler=new Handler(Looper.getMainLooper());
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
+
     public OnPermission(Activity mActivity) {
         this.mActivity = mActivity;
         mNewPermission = new ArrayList<>();
@@ -50,10 +51,14 @@ public class OnPermission implements PermissionDialogListener {
             if (checkPermission(permission.getPermision())) {
                 mListener.onAuthorize(permission.getPermision(), true);
             } else {
-                OnPermissionDialog dialog = new OnPermissionDialog(mActivity, permission.getPermision(), permission.getContent());
-                dialog.setPermissionDialogListener(this);
-                dialog.show();
+                mNewPermission.add(permission);
             }
+        }
+        if (mNewPermission.size() > 0) {
+            OnPermissionDialog dialog = new OnPermissionDialog(mActivity, mNewPermission.get(0).getPermision(), mNewPermission.get(0).getContent());
+            dialog.setPermissionDialogListener(this);
+            dialog.show();
+            mNewPermission.remove(0);
         }
     }
 
@@ -77,6 +82,14 @@ public class OnPermission implements PermissionDialogListener {
         if (mListener == null) return;
         for (int i = 0; i < permissions.length; i++) {
             mListener.onAuthorize(permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false);
+            if (grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false) {
+                if (mNewPermission.size() > 0) {
+                    OnPermissionDialog dialog = new OnPermissionDialog(mActivity, mNewPermission.get(0).getPermision(), mNewPermission.get(0).getContent());
+                    dialog.setPermissionDialogListener(this);
+                    dialog.show();
+                    mNewPermission.remove(0);
+                }
+            }
         }
     }
 
@@ -85,6 +98,7 @@ public class OnPermission implements PermissionDialogListener {
         List<String> permissions = new ArrayList<>();
         permissions.add(permission);
         authorizePermission(permissions);
+
     }
 
     @Override
