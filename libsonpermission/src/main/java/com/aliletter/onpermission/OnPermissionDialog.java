@@ -1,18 +1,17 @@
-package com.absurd.onpermission;
+package com.aliletter.onpermission;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.TextView;
 
 /**
- * Author: mr-absurd
- * Github: http://github.com/mr-absurd
+ * Author: aliletter
+ * Github: http://github.com/aliletter
  * Data: 2017/9/28.
  */
 

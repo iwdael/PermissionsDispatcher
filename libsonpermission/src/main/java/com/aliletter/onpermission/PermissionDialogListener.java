@@ -1,8 +1,8 @@
-package com.absurd.onpermission;
+package com.aliletter.onpermission;
 
 /**
- * Author: mr-absurd
- * Github: http://github.com/mr-absurd
+ * Author: aliletter
+ * Github: http://github.com/aliletter
  * Data: 2017/9/28.
  */
 

@@ -1,11 +1,11 @@
-package com.absurd.onpermission;
+package com.aliletter.onpermission;
 
 
 import android.Manifest;
 
 /**
- * Author: mr-absurd
- * Github: http://github.com/mr-absurd
+ * Author: aliletter
+ * Github: http://github.com/aliletter
  * Data: 2017/9/27.
  */
 

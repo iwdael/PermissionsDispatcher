@@ -1,4 +1,4 @@
-package com.absurd.demo_onpermission;
+package com.aliletter.demo_onpermission;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

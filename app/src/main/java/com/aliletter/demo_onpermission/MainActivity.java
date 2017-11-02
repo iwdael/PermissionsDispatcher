@@ -1,20 +1,15 @@
-package com.absurd.demo_onpermission;
+package com.aliletter.demo_onpermission;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.absurd.onpermission.OnPermission;
-import com.absurd.onpermission.Permission;
-import com.absurd.onpermission.PermissionListener;
-import com.absurd.onpermission.UsePermission;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.aliletter.onpermission.OnPermission;
+import com.aliletter.onpermission.Permission;
+import com.aliletter.onpermission.PermissionListener;
+import com.aliletter.onpermission.UsePermission;
 
 public class MainActivity extends AppCompatActivity implements PermissionListener {
     OnPermission onPermission;

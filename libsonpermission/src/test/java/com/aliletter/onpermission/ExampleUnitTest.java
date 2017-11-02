@@ -1,4 +1,4 @@
-package com.absurd.onpermission;
+package com.aliletter.onpermission;
 
 import org.junit.Test;
 
