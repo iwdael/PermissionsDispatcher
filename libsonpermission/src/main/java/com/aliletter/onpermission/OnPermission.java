@@ -35,7 +35,7 @@ public class OnPermission implements PermissionDialogListener {
 
         for (String permission : permissions) {
             if (checkPermission(permission)) {
-                mListener.onAuthorize(new String[]{permission}, true);
+                mListener.onAuthorize(permission, true);
             } else {
                 mNewPermission.add(new Permission(permission, null));
             }
@@ -54,7 +54,7 @@ public class OnPermission implements PermissionDialogListener {
 
         for (String permission : permissions) {
             if (checkPermission(permission)) {
-                mListener.onAuthorize(new String[]{permission}, true);
+                mListener.onAuthorize(permission, true);
             } else {
                 mNewPermission.add(new Permission(permission, null));
             }
@@ -75,7 +75,7 @@ public class OnPermission implements PermissionDialogListener {
     public void authorize(Permission[] permissions) {
         for (Permission permission : permissions) {
             if (checkPermission(permission.getPermision())) {
-                mListener.onAuthorize(new String[]{permission.getPermision()}, true);
+                mListener.onAuthorize(permission.getPermision(), true);
             } else {
                 mNewPermission.add(permission);
             }
@@ -110,7 +110,7 @@ public class OnPermission implements PermissionDialogListener {
         if (requestCode != UsePermission.REQUESTCODE) return;
         if (mListener == null) return;
         for (int i = 0; i < permissions.length; i++) {
-            mListener.onAuthorize(permissions, grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false);
+            mListener.onAuthorize(permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false);
             if (grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false) {
                 if (mNewPermission.size() > 0) {
                     List<String> list = new ArrayList<>();
@@ -136,7 +136,10 @@ public class OnPermission implements PermissionDialogListener {
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                mListener.onAuthorize(permission.toArray(new String[permission.size()]), false);
+                for (String s : permission) {
+                    mListener.onAuthorize(s, false);
+                }
+
             }
         });
 

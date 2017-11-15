@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface PermissionListener {
-    void onAuthorize( String[] permission, boolean result);
+    void onAuthorize( String  permission, boolean result);
 }

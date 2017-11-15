@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
         list.add(UsePermission.WRITE_EXTERNAL_STORAGE);
         list.add(UsePermission.CAMERA);
         String[] per = new String[]{UsePermission.WRITE_EXTERNAL_STORAGE, UsePermission.CAMERA};
-        onPermission.authorize(per,"12323123123213");
+        onPermission.authorize(per);
 
     }
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
     }
 
     @Override
-    public void onAuthorize(String[] permission, boolean result) {
+    public void onAuthorize(String  permission, boolean result) {
 
         Log.v("TAG", "------>>" + permission + "--------->>" + result);
         if (!result) {
