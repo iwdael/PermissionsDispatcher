@@ -1,5 +1,7 @@
 package com.aliletter.onpermission;
 
+import java.util.List;
+
 /**
  * Author: aliletter
  * Github: http://github.com/aliletter
@@ -7,7 +9,7 @@ package com.aliletter.onpermission;
  */
 
 public interface PermissionDialogListener {
-    void onConfirm(String permission);
+    void onConfirm(List<String> permission);
 
-    void onCancel(String permission);
+    void onCancel(List<String>  permission);
 }

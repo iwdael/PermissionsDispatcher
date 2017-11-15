@@ -1,5 +1,7 @@
 package com.aliletter.onpermission;
 
+import java.util.List;
+
 /**
  * Author: aliletter
  * Github: http://github.com/aliletter
@@ -7,5 +9,5 @@ package com.aliletter.onpermission;
  */
 
 public interface PermissionListener {
-    void onAuthorize(String permission, boolean result);
+    void onAuthorize( String[] permission, boolean result);
 }

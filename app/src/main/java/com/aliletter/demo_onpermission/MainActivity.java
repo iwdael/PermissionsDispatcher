@@ -11,6 +11,9 @@ import com.aliletter.onpermission.Permission;
 import com.aliletter.onpermission.PermissionListener;
 import com.aliletter.onpermission.UsePermission;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements PermissionListener {
     OnPermission onPermission;
 
@@ -25,7 +28,11 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
                 new Permission(UsePermission.WRITE_EXTERNAL_STORAGE, getString(R.string.sdcard)),
                 new Permission(UsePermission.CAMERA, getString(R.string.camera))
         };
-        onPermission.authorize(permissions1);
+        List<String> list = new ArrayList<>();
+        list.add(UsePermission.WRITE_EXTERNAL_STORAGE);
+        list.add(UsePermission.CAMERA);
+        String[] per = new String[]{UsePermission.WRITE_EXTERNAL_STORAGE, UsePermission.CAMERA};
+        onPermission.authorize(per,"12323123123213");
 
     }
 
@@ -37,18 +44,18 @@ public class MainActivity extends AppCompatActivity implements PermissionListene
     }
 
     @Override
-    public void onAuthorize(String permission, boolean result) {
+    public void onAuthorize(String[] permission, boolean result) {
 
         Log.v("TAG", "------>>" + permission + "--------->>" + result);
         if (!result) {
-            Toast.makeText(MainActivity.this,"3 back",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "3 back", Toast.LENGTH_SHORT).show();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         Thread.sleep(3000);
                         finish();
-                        } catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

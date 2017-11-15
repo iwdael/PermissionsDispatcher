@@ -9,6 +9,8 @@ import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Author: aliletter
  * Github: http://github.com/aliletter
@@ -18,9 +20,10 @@ import android.widget.TextView;
 public class OnPermissionDialog extends Dialog implements View.OnClickListener, DialogInterface.OnCancelListener {
     private TextView tv_content;
     private PermissionDialogListener mListener;
-    private String mPermission, mContent;
+    private List<String> mPermission;
+    private String mContent;
 
-    public OnPermissionDialog(Context context, String permission, String content) {
+    public OnPermissionDialog(Context context, List<String>  permission, String content) {
         this(context, R.style.OnPermissionDialog);
         mPermission = permission;
         mContent = content;
