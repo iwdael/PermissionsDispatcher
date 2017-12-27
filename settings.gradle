@@ -1,1 +1,1 @@
-include ':app', ':libsonpermission'
+include ':example', ':libsonpermission'

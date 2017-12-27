@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/OnPermission.iml" filepath="$PROJECT_DIR$/OnPermission.iml" />
+      <module fileurl="file://C:\Users\alile\Desktop\OnPermission\OnPermission.iml" filepath="C:\Users\alile\Desktop\OnPermission\OnPermission.iml" />
+      <module fileurl="file://C:\Users\alile\Desktop\OnPermission\app\app.iml" filepath="C:\Users\alile\Desktop\OnPermission\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/app.iml" filepath="$PROJECT_DIR$/example/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libsonpermission/libsonpermission.iml" filepath="$PROJECT_DIR$/libsonpermission/libsonpermission.iml" />
+      <module fileurl="file://C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" filepath="C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" />
+    </modules>
+  </component>
+</project>

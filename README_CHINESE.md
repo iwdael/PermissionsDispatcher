@@ -39,7 +39,7 @@ new OnPermission(this).grant(new Permission() {
 ```Java
 	dependencies {
                 ...
-	        compile 'com.github.aliletter:onpermission:v1.0.8'
+	        compile 'com.github.aliletter:onpermission:v1.0.9'
 	}
 ```
 <br><br>

@@ -39,7 +39,7 @@ Add it in your application module build.gradle at the end of dependencies where 
 ```Java
 	dependencies {
                 ...
-	        compile 'com.github.aliletter:onpermission:v1.0.8'
+	        compile 'com.github.aliletter:onpermission:v1.0.9'
 	}
 ```
  <br><br>
