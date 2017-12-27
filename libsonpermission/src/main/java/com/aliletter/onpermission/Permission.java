@@ -6,28 +6,10 @@ package com.aliletter.onpermission;
  * Data: 2017/9/28.
  */
 
-public class Permission {
-    private String permision;
-    private String content;
+public interface Permission {
+    String[] permissions();
 
-    public Permission(String permision, String content) {
-        this.permision = permision;
-        this.content = content;
-    }
+    void onGranted(String[] permission);
 
-    public String getPermision() {
-        return permision;
-    }
-
-    public void setPermision(String permision) {
-        this.permision = permision;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    void onDenied(String[] permission);
 }

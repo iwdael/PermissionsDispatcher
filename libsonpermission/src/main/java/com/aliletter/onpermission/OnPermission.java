@@ -1,13 +1,21 @@
 package com.aliletter.onpermission;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.Build;
+
+
+
 import android.support.v4.content.ContextCompat;
 
+
+import com.aliletter.onpermission.proxy.ProxyFragment;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 /**
@@ -16,132 +24,46 @@ import java.util.List;
  * Data: 2017/9/27.
  */
 
-public class OnPermission implements PermissionDialogListener {
-    private Activity mActivity;
-    private PermissionListener mListener;
-    private List<Permission> mNewPermission;
-    private Handler mainHandler = new Handler(Looper.getMainLooper());
+public class OnPermission {
+    protected Activity activity;
+    protected final String TAG = ProxyFragment.class.getName();
 
-    public OnPermission(Activity mActivity) {
-        this.mActivity = mActivity;
-        mNewPermission = new ArrayList<>();
+    public OnPermission(Activity activity) {
+        this.activity = activity;
     }
 
-    public void setPermissionListener(PermissionListener listener) {
-        mListener = listener;
-    }
-
-    public void authorize(String[] permissions) {
-
-        for (String permission : permissions) {
-            if (checkPermission(permission)) {
-                mListener.onAuthorize(permission, true);
-            } else {
-                mNewPermission.add(new Permission(permission, null));
-            }
+    private ProxyFragment getFragment() {
+        Fragment fragment = activity.getFragmentManager().findFragmentByTag(TAG);
+        if (fragment == null) {
+            fragment = new ProxyFragment();
+            FragmentManager fragmentManager = activity.getFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(fragment, TAG)
+                    .commitAllowingStateLoss();
+            fragmentManager.executePendingTransactions();
         }
-        if (mNewPermission.size() > 0) {
-            List<String> list = new ArrayList();
-            for (Permission permission : mNewPermission) {
-                list.add(permission.getPermision());
-            }
-            authorizePermission(list);
-            mNewPermission.clear();
-        }
+        return (ProxyFragment) fragment;
     }
 
-    public void authorize(String[] permissions, String content) {
-
-        for (String permission : permissions) {
-            if (checkPermission(permission)) {
-                mListener.onAuthorize(permission, true);
-            } else {
-                mNewPermission.add(new Permission(permission, null));
-            }
-        }
-        if (mNewPermission.size() > 0) {
-            List<String> list = new ArrayList();
-            for (Permission permission : mNewPermission) {
-                list.add(permission.getPermision());
-            }
-            OnPermissionDialog dialog = new OnPermissionDialog(mActivity, list, mNewPermission.get(0).getContent());
-            dialog.setPermissionDialogListener(this);
-            dialog.show();
-            mNewPermission.clear();
-        }
-
+    public void grant(Permission permission) {
+        String[] permissions = checkPermisson(permission);
+        if (permissions.length == 0) return;
+        getFragment().setPermission(permission);
+        getFragment().requestPermissions(permissions, ProxyFragment.requestcode);
     }
 
-    public void authorize(Permission[] permissions) {
-        for (Permission permission : permissions) {
-            if (checkPermission(permission.getPermision())) {
-                mListener.onAuthorize(permission.getPermision(), true);
-            } else {
-                mNewPermission.add(permission);
-            }
+    private String[] checkPermisson(Permission permission) {
+        List<String> permissions = new ArrayList<>();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            permission.onGranted(permission.permissions());
+            return permissions.toArray(new String[permissions.size()]);
         }
-        if (mNewPermission.size() > 0) {
-            List<String> list = new ArrayList();
-            list.add(mNewPermission.get(0).getPermision());
-            OnPermissionDialog dialog = new OnPermissionDialog(mActivity, list, mNewPermission.get(0).getContent());
-            dialog.setPermissionDialogListener(this);
-            dialog.show();
-            mNewPermission.remove(0);
+        for (String s : permission.permissions()) {
+            if (PackageManager.PERMISSION_DENIED == ContextCompat.checkSelfPermission(getFragment().getContext(), s))
+                permissions.add(s);
         }
-    }
-
-
-    private boolean checkPermission(String permission) {
-        boolean result;
-        if (ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
-            result = false;
-        } else {
-            result = true;
-        }
-        return result;
-    }
-
-    private void authorizePermission(List<String> permissions) {
-
-        mActivity.requestPermissions(permissions.toArray(new String[permissions.size()]), UsePermission.REQUESTCODE);
-    }
-
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode != UsePermission.REQUESTCODE) return;
-        if (mListener == null) return;
-        for (int i = 0; i < permissions.length; i++) {
-            mListener.onAuthorize(permissions[i], grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false);
-            if (grantResults[i] == PackageManager.PERMISSION_GRANTED ? true : false) {
-                if (mNewPermission.size() > 0) {
-                    List<String> list = new ArrayList<>();
-                    list.add(mNewPermission.get(0).getPermision());
-                    OnPermissionDialog dialog = new OnPermissionDialog(mActivity, list, mNewPermission.get(0).getContent());
-                    dialog.setPermissionDialogListener(this);
-                    dialog.show();
-                    mNewPermission.remove(0);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onConfirm(List<String> permission) {
-
-        authorizePermission(permission);
-
-    }
-
-    @Override
-    public void onCancel(final List<String> permission) {
-        mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (String s : permission) {
-                    mListener.onAuthorize(s, false);
-                }
-
-            }
-        });
-
+        if (permissions.size() == 0) permission.onGranted(permission.permissions());
+        return permissions.toArray(new String[permissions.size()]);
     }
 }
