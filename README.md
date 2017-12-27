@@ -1,5 +1,5 @@
 # OnPermission  [![](https://jitpack.io/v/aliletter/onpermission.svg)](https://jitpack.io/#aliletter/onpermission)
-OnPermission is used to  authorize mobile phone which operating system is android and above 6.0 .  You only need to simply configure the project and will be able to achieve dynamic authorization. (OnPermission also with instructions when you apply for permission .[中文文档](https://github.com/aliletter/OnPermisson/blob/master/README_CHINESE.md)
+OnPermission is used to  authorize mobile phone which operating system is android and above 6.0 .  You only need to simply configure the project and will be able to achieve dynamic authorization. (OnPermission also with instructions when you apply for permission .[中文文档](https://github.com/aliletter/OnPermission/blob/master/README_CHINESE.md)
 ## Instruction
 ### Code Sample
 ```Java
