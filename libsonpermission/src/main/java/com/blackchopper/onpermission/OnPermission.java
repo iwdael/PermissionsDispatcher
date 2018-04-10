@@ -1,9 +1,8 @@
-package com.aliletter.onpermission;
+package com.blackchopper.onpermission;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
@@ -12,18 +11,18 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 
 
-import com.aliletter.onpermission.proxy.ProxyFragment;
+import com.blackchopper.onpermission.proxy.ProxyFragment;
 
 import java.util.ArrayList;
 
 import java.util.List;
 
 /**
- * Author: aliletter
- * Github: http://github.com/aliletter
- * Data: 2017/9/27.
+ * author  : Black Chopper
+ * e-mail  : 4884280@qq.com
+ * github  : http://github.com/BlackChopper
+ * project : OnPermission
  */
-
 public class OnPermission {
     protected Activity activity;
     protected final String TAG = ProxyFragment.class.getName();

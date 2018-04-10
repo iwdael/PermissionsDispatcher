@@ -1,22 +1,21 @@
-package com.aliletter.onpermission.proxy;
+package com.blackchopper.onpermission.proxy;
 
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 
-import com.aliletter.onpermission.Permission;
+import com.blackchopper.onpermission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Author：alilettter
- * Github: http://github.com/aliletter
- * Email: 4884280@qq.com
- * data: 2017/12/27
+ * author  : Black Chopper
+ * e-mail  : 4884280@qq.com
+ * github  : http://github.com/BlackChopper
+ * project : OnPermission
  */
-
 public class ProxyFragment extends Fragment {
     public final static int requestcode = 10012;
     private Permission permission;

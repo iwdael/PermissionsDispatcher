@@ -1,11 +1,12 @@
-package com.aliletter.demo_onpermission;
+package com.blackchopper.demo_onpermission;
 
 import android.Manifest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.aliletter.onpermission.OnPermission;
-import com.aliletter.onpermission.Permission;
+import com.blackchopper.demo_onpermission.R;
+import com.blackchopper.onpermission.OnPermission;
+import com.blackchopper.onpermission.Permission;
 
 public class MainActivity extends AppCompatActivity {
     @Override

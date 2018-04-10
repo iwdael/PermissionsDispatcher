@@ -1,14 +1,14 @@
-package com.aliletter.onpermission;
+package com.blackchopper.onpermission;
 
 
 import android.Manifest;
 
 /**
- * Author: aliletter
- * Github: http://github.com/aliletter
- * Data: 2017/9/27.
+ * author  : Black Chopper
+ * e-mail  : 4884280@qq.com
+ * github  : http://github.com/BlackChopper
+ * project : OnPermission
  */
-
 public class UsePermission {
     public static int REQUESTCODE = 122;
     public static String READ_CALENDAR = Manifest.permission.READ_CALENDAR;
