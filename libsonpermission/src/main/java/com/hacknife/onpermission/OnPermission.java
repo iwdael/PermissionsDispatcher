@@ -1,4 +1,4 @@
-package com.blackchopper.onpermission;
+package com.hacknife.onpermission;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -11,7 +11,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 
 
-import com.blackchopper.onpermission.proxy.ProxyFragment;
+import com.hacknife.onpermission.proxy.ProxyFragment;
 
 import java.util.ArrayList;
 

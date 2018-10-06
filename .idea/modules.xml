@@ -4,13 +4,16 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OnPermission.iml" filepath="$PROJECT_DIR$/OnPermission.iml" />
       <module fileurl="file://C:\Users\alile\Desktop\OnPermission\OnPermission.iml" filepath="C:\Users\alile\Desktop\OnPermission\OnPermission.iml" />
+      <module fileurl="file://C:\Users\Black Chopper\Desktop\OnPermission\OnPermission.iml" filepath="C:\Users\Black Chopper\Desktop\OnPermission\OnPermission.iml" />
       <module fileurl="file://F:\OnPermission\OnPermission.iml" filepath="F:\OnPermission\OnPermission.iml" />
       <module fileurl="file://C:\Users\alile\Desktop\OnPermission\app\app.iml" filepath="C:\Users\alile\Desktop\OnPermission\app\app.iml" />
       <module fileurl="file://F:\OnPermission\example\app.iml" filepath="F:\OnPermission\example\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
+      <module fileurl="file://C:\Users\Black Chopper\Desktop\OnPermission\example\example.iml" filepath="C:\Users\Black Chopper\Desktop\OnPermission\example\example.iml" />
       <module fileurl="file://$PROJECT_DIR$/libsonpermission/libsonpermission.iml" filepath="$PROJECT_DIR$/libsonpermission/libsonpermission.iml" />
-      <module fileurl="file://C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" filepath="C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" />
+      <module fileurl="file://C:\Users\Black Chopper\Desktop\OnPermission\libsonpermission\libsonpermission.iml" filepath="C:\Users\Black Chopper\Desktop\OnPermission\libsonpermission\libsonpermission.iml" />
       <module fileurl="file://F:\OnPermission\libsonpermission\libsonpermission.iml" filepath="F:\OnPermission\libsonpermission\libsonpermission.iml" />
+      <module fileurl="file://C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" filepath="C:\Users\alile\Desktop\OnPermission\libsonpermission\libsonpermission.iml" />
     </modules>
   </component>
 </project>

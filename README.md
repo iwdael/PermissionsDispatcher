@@ -1,7 +1,7 @@
 # OnPermission  [![](https://jitpack.io/v/blackchopper/onpermission.svg)](https://jitpack.io/#blackchopper/onpermission)
-OnPermission is used to  authorize mobile phone which operating system is android and above 6.0 .  You only need to simply configure the project and will be able to achieve dynamic authorization. (OnPermission also with instructions when you apply for permission .[中文文档](https://github.com/blackchopper/OnPermission/blob/master/README_CHINESE.md)
-## Instruction
-### Code Sample
+OnPermission用于授权的手机的操作系统是Android 6及以上,只需要简单地配置项目，就可以实现动态授权。[English](https://github.com/blackchopper/OnPermission/blob/master/README_ENGLISH.md)
+## 使用说明
+### 代码示例
 ```Java
 new OnPermission(this).grant(new Permission() {
             @Override
@@ -12,20 +12,20 @@ new OnPermission(this).grant(new Permission() {
                         Manifest.permission.READ_CONTACTS
                 };
             }
-            //The method will be callback to this method when the user agrees to all permission applications
+            //当用户同意所有的权限申请后才会回调此方法
             @Override
             public void onGranted(String[] pemissions) {
             }
-            //This method will be callback as long as the user does not have one of the permissions to agree to the application.
+            //只要用户没有同意申请的权限的其中之一，此方法便会回调
             @Override
             public void onDenied(String[] pemissions) {
             }
         });
 ```
-## How to
-To get a Git project into your build:
-### Step 1. Add the JitPack repository to your build file
-Add it in your root build.gradle at the end of repositories.   [click here for details](https://github.com/blackchopper/CarouselBanner/blob/master/root_build.gradle.png)
+## 如何配置
+将本仓库引入你的项目:
+### Step 1. 添加JitPack仓库到Build文件
+合并以下代码到项目根目录下的build.gradle文件的repositories尾。[点击查看详情](https://github.com/blackchopper/CarouselBanner/blob/master/root_build.gradle.png)
 ```Java
 	allprojects {
 		repositories {
@@ -34,16 +34,16 @@ Add it in your root build.gradle at the end of repositories.   [click here for d
 		}
 	}
 ```
-### Step 2. Add the dependency
-Add it in your application module build.gradle at the end of dependencies where you want to use.   [click here for details](https://github.com/blackchopper/CarouselBanner/blob/master/application_build.gradle.png)
+### Step 2. 添加依赖   
+合并以下代码到需要使用的application Module的dependencies尾。[点击查看详情](https://github.com/blackchopper/CarouselBanner/blob/master/application_build.gradle.png)
 ```Java
 	dependencies {
                 ...
 	        compile 'com.github.blackchopper:onpermission:v1.1.0'
 	}
 ```
- <br><br>
-## Thank you for your browsing
-If you have any questions, please join the QQ group. I will do my best to answer it for you. Welcome to star and fork this repository, alse follow me.
+<br><br>
+## 感谢浏览
+如果你有任何疑问，请加入QQ群，我将竭诚为你解答。欢迎Star和Fork本仓库，当然也欢迎你关注我。
 <br>
 ![Image Text](https://github.com/blackchopper/CarouselBanner/blob/master/qq_group.png)

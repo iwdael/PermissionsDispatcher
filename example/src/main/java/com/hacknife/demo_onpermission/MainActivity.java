@@ -1,12 +1,11 @@
-package com.blackchopper.demo_onpermission;
+package com.hacknife.demo_onpermission;
 
 import android.Manifest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.blackchopper.demo_onpermission.R;
-import com.blackchopper.onpermission.OnPermission;
-import com.blackchopper.onpermission.Permission;
+import com.hacknife.onpermission.OnPermission;
+import com.hacknife.onpermission.Permission;
 
 public class MainActivity extends AppCompatActivity {
     @Override

@@ -1,11 +1,11 @@
-package com.blackchopper.onpermission.proxy;
+package com.hacknife.onpermission.proxy;
 
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 
-import com.blackchopper.onpermission.Permission;
+import com.hacknife.onpermission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
