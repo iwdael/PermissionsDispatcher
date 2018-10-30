@@ -1,5 +1,6 @@
-# OnPermission  [![](https://jitpack.io/v/hacknife/onpermission.svg)](https://jitpack.io/#hacknife/onpermission)
-OnPermission用于授权的手机的操作系统是Android 6及以上,只需要简单地配置项目，就可以实现动态授权。[English](https://github.com/hacknife/OnPermission/blob/master/README_ENGLISH.md)
+# OnPermission
+[![](https://img.shields.io/badge/platform-android-orange.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/language-java-yellow.svg)](https://github.com/hacknife) [![](https://jitpack.io/v/com.hacknife/onpermission.svg)](https://jitpack.io/#com.hacknife/onpermission) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/hacknife)<br/><br/>
+OnPermission用于授权的手机的操作系统是Android 6及以上,只需要简单地配置项目，就可以实现动态授权。
 ## 使用说明
 ### 代码示例
 ```Java
@@ -39,7 +40,7 @@ new OnPermission(this).grant(new Permission() {
 ```Java
 	dependencies {
                 ...
-	        compile 'com.github.hacknife:onpermission:v1.1.0'
+	        compile 'com.hacknife:onpermission:tag'
 	}
 ```
 <br><br>

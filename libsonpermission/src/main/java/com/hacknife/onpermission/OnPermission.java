@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 
-
 import android.support.v4.content.ContextCompat;
 
 
@@ -43,6 +42,10 @@ public class OnPermission {
             fragmentManager.executePendingTransactions();
         }
         return (ProxyFragment) fragment;
+    }
+
+    public static void grant(Activity activity, Permission permission) {
+        new OnPermission(activity).grant(permission);
     }
 
     public void grant(Permission permission) {
