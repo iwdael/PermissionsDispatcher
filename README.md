@@ -23,24 +23,12 @@ new OnPermission(this).grant(new Permission() {
             }
         });
 ```
-## 如何配置
-将本仓库引入你的项目:
-### Step 1. 添加JitPack仓库到Build文件
-合并以下代码到项目根目录下的build.gradle文件的repositories尾。[点击查看详情](https://github.com/hacknife/CarouselBanner/blob/master/root_build.gradle.png)
-```Java
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
-### Step 2. 添加依赖   
-合并以下代码到需要使用的application Module的dependencies尾。[点击查看详情](https://github.com/hacknife/CarouselBanner/blob/master/application_build.gradle.png)
+
+#### 快速引入项目 
 ```Java
 	dependencies {
                 ...
-	        compile 'com.hacknife:onpermission:tag'
+	        compile 'com.hacknife:onpermission:1.1.3'
 	}
 ```
 <br><br>
