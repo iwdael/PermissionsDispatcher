@@ -1,1 +1,1 @@
-include ':example', ':libsonpermission'
+include ':examples', ':permission'

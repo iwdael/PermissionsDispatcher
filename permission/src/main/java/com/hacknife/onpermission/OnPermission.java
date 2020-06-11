@@ -3,10 +3,12 @@ package com.hacknife.onpermission;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
 
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 
 
@@ -49,20 +51,20 @@ public class OnPermission {
     }
 
     public void grant(Permission permission) {
-        String[] permissions = checkPermisson(permission);
+        String[] permissions = checkPermission(activity, permission);
         if (permissions.length == 0) return;
         getFragment().setPermission(permission);
         getFragment().requestPermissions(permissions, ProxyFragment.requestcode);
     }
 
-    private String[] checkPermisson(Permission permission) {
+    public static String[] checkPermission(Context context, Permission permission) {
         List<String> permissions = new ArrayList<>();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             permission.onGranted(permission.permissions());
             return permissions.toArray(new String[permissions.size()]);
         }
         for (String s : permission.permissions()) {
-            if (PackageManager.PERMISSION_DENIED == ContextCompat.checkSelfPermission(getFragment().getContext(), s))
+            if (PackageManager.PERMISSION_DENIED == ContextCompat.checkSelfPermission(context, s))
                 permissions.add(s);
         }
         if (permissions.size() == 0) permission.onGranted(permission.permissions());
