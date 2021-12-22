@@ -1,5 +1,7 @@
 apply from: './../config.gradle'
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
 android {
     buildToolsVersion buidConfig.buildToolsVersion
     compileSdkVersion buidConfig.compileSdkVersion
