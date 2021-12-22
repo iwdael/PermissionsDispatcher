@@ -1,9 +1,9 @@
-package com.hacknife.onpermission;
+package com.iwdael.onpermission;
 
 /**
- * author  : Black Chopper
- * e-mail  : 4884280@qq.com
- * github  : http://github.com/BlackChopper
+ * author  : Iwdael
+ * e-mail  : iwdael@outlook.com
+ * github  : http://github.com/iwdael
  * project : OnPermission
  */
 public interface Permission {

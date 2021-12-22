@@ -1,11 +1,10 @@
-package com.hacknife.demo_onpermission;
+package com.iwdael.onpermission;
 
 import android.Manifest;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
-import com.hacknife.onpermission.OnPermission;
-import com.hacknife.onpermission.Permission;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override

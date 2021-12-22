@@ -1,19 +1,20 @@
-package com.hacknife.onpermission.proxy;
+package com.iwdael.onpermission.proxy;
 
 import android.app.Fragment;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 
-import com.hacknife.onpermission.Permission;
+import androidx.annotation.NonNull;
+
+import com.iwdael.onpermission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author  : Black Chopper
- * e-mail  : 4884280@qq.com
- * github  : http://github.com/BlackChopper
+ * author  : Iwdael
+ * e-mail  : iwdael@outlook.com
+ * github  : http://github.com/iwdael
  * project : OnPermission
  */
 public class ProxyFragment extends Fragment {
