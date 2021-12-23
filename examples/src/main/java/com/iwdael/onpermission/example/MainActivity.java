@@ -1,10 +1,14 @@
-package com.iwdael.onpermission;
+package com.iwdael.onpermission.example;
 
 import android.Manifest;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.iwdael.onpermission.OnPermission;
+import com.iwdael.onpermission.Permission;
+
 
 public class MainActivity extends AppCompatActivity {
     @Override

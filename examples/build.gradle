@@ -10,6 +10,10 @@ android {
         versionCode buidConfig.versionCode
         versionName buidConfig.versionName
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 dependencies {
     implementation dependent.appcompat

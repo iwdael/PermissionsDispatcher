@@ -1,10 +1,10 @@
 package com.iwdael.onpermission.proxy;
 
-import android.app.Fragment;
 import android.content.pm.PackageManager;
 
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.iwdael.onpermission.Permission;
 

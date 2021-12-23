@@ -1,19 +1,21 @@
 package com.iwdael.onpermission;
 
+
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.iwdael.onpermission.proxy.ProxyFragment;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 /**
@@ -23,18 +25,18 @@ import java.util.List;
  * project : OnPermission
  */
 public class OnPermission {
-    protected Activity activity;
+    protected AppCompatActivity activity;
     protected final String TAG = ProxyFragment.class.getName();
 
-    public OnPermission(Activity activity) {
+    public OnPermission(AppCompatActivity activity) {
         this.activity = activity;
     }
 
-    private ProxyFragment getFragment() {
-        Fragment fragment = activity.getFragmentManager().findFragmentByTag(TAG);
+     private ProxyFragment getFragment() {
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentByTag(TAG);
         if (fragment == null) {
             fragment = new ProxyFragment();
-            FragmentManager fragmentManager = activity.getFragmentManager();
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
             fragmentManager
                     .beginTransaction()
                     .add(fragment, TAG)
@@ -44,7 +46,7 @@ public class OnPermission {
         return (ProxyFragment) fragment;
     }
 
-    public static void grant(Activity activity, Permission permission) {
+    public static void grant(AppCompatActivity activity, Permission permission) {
         new OnPermission(activity).grant(permission);
     }
 

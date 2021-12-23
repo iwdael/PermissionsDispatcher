@@ -1,5 +1,11 @@
 # OnPermission
-[![](https://img.shields.io/badge/platform-android-orange.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/language-java-yellow.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/Jcenter-1.1.3-brightgreen.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/license-apache--2.0-green.svg)](https://github.com/hacknife) [![](https://img.shields.io/badge/api-19+-green.svg)](https://github.com/hacknife)<br/><br/>
+![](https://img.shields.io/badge/platform-android-orange.svg)
+![](https://img.shields.io/badge/language-java-yellow.svg)
+![](https://jitpack.io/v/iwdael/onpermission.svg)
+![](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![](https://img.shields.io/badge/license-apache--2.0-green.svg)
+![](https://img.shields.io/badge/api-19+-green.svg)
+
 OnPermission用于授权的手机的操作系统是Android 6及以上,只需要简单地配置项目，就可以实现动态授权。
 ## 使用说明
 ### 代码示例
@@ -28,7 +34,7 @@ new OnPermission(this).grant(new Permission() {
 ```Java
 	dependencies {
                 ...
-	        compile 'com.hacknife:onpermission:1.1.3'
+	        compile 'com.iwdael:onpermission:$version'
 	}
 ```
 <br><br>
