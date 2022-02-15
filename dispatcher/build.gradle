@@ -1,0 +1,27 @@
+apply from: './../config.gradle'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion buidConfig.compileSdkVersion
+    buildToolsVersion buidConfig.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion buidConfig.minSdkVersion
+        targetSdkVersion buidConfig.targetSdkVersion
+        versionCode buidConfig.versionCode
+        versionName buidConfig.versionName
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    api project(path: ':annotation')
+    implementation dep.kotlinStdlib
+    implementation dep.coreKtx
+    implementation dep.appcompat
+}

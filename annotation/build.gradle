@@ -1,0 +1,10 @@
+apply from: './../config.gradle'
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation dep.kotlinStdlibJdk7
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
