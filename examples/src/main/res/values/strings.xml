@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">OnPermission</string>
-    <string name="sdcard" >我们申请储存卡的操作权限用于用户信息的保存和读取。</string>
-    <string name="camera" >我们申请相机的操作权限用于头像的拍摄和上传。</string>
-</resources>

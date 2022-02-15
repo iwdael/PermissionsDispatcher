@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">libsonpermission</string>
-    <string name="onpermission_attention">提示</string>
-    <string name="onpermission_content">我们将申请用户的媒体库的学些去那先</string>
-    <string name="onpermission_agree">确定</string>
-    <string name="onpermission_disagree">取消</string>
-</resources>

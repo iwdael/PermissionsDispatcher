@@ -1,16 +1,22 @@
 ext {
     buidConfig = [
-            'compileSdkVersion': 28,
-            'targetSdkVersion' : 28,
+            'compileSdkVersion': 30,
+            'targetSdkVersion' : 30,
             'minSdkVersion'    : 19,
             'versionCode'      : 1,
-            'versionName'      : '1.0.0',
-            'buildToolsVersion': '28.0.3'
+            'versionName'      : "1.0.0",
+            'buildToolsVersion': "30.0.3",
     ]
-    dependent = [
-            'appcompat'       : 'androidx.appcompat:appcompat:1.3.1',
-            'constraintlayout': 'androidx.constraintlayout:constraintlayout:2.1.1',
-            'androidxCore'    : 'androidx.core:core-ktx:1.6.0',
-            'kotlinJdk7'      : 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21',
+
+    dep = [
+            'kotlinStdlibJdk7': 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21',
+            'kotlinStdlib'    : 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21',
+            'coreKtx'         : 'androidx.core:core-ktx:1.6.0',
+            'appcompat'       : 'androidx.appcompat:appcompat:1.1.0',
+            'constraintlayout': 'androidx.constraintlayout:constraintlayout:2.1.3',
+            'javapoet'        : 'com.squareup:javapoet:1.9.0',
+            'kotlinpoet'      : 'com.squareup:kotlinpoet:1.3.0',
+            'kotlinxMetadata' : 'org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.3.0',
+            'autoService' : 'com.google.auto.service:auto-service:1.0-rc4',
     ]
 }

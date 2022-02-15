@@ -1,0 +1,31 @@
+apply from: './../config.gradle'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion buidConfig.compileSdkVersion
+    buildToolsVersion buidConfig.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.iwdael.permissionsdispatcher"
+        minSdkVersion buidConfig.minSdkVersion
+        targetSdkVersion buidConfig.targetSdkVersion
+        versionCode buidConfig.versionCode
+        versionName buidConfig.versionName
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation dep.kotlinStdlib
+    implementation dep.coreKtx
+    implementation dep.appcompat
+    implementation dep.constraintlayout
+    kapt project(path: ':compiler')
+    implementation project(path: ':dispatcher')
+}
