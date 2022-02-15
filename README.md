@@ -34,7 +34,8 @@ new OnPermission(this).grant(new Permission() {
 ```Java
 	dependencies {
                 ...
-	        compile 'com.iwdael:permissionsdispatcher:![](https://jitpack.io/v/com.iwdael/permissionsdispatcher.svg)'
+	        compile 'com.iwdael.permissionsdispatcher:dispatcher:$version'
+	        kapt 'com.iwdael.permissionsdispatcher:compiler:$version'
 	}
 ```
 <br><br>
