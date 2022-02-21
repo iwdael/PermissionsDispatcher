@@ -1,5 +1,6 @@
 package com.iwdael.permissionsdispatcher.processor
 
+import com.iwdael.permissionsdispatcher.annotation.PermissionDispatcherRationale
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherNeeds
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherRationale
@@ -63,6 +64,10 @@ private fun MethodElement.getAnnotationPair(): Pair<List<String>, Int> {
             this.getAnnotation(PermissionsDispatcherRationale::class.java)!!
                 .let { it.value.toList() to it.identity }
         }
+        this.getAnnotation(PermissionDispatcherRationale::class.java) != null -> {
+            this.getAnnotation(PermissionDispatcherRationale::class.java)!!
+                .let { it.value.toList() to it.identity }
+        }
         else -> this.getAnnotation(PermissionsDispatcherDenied::class.java)!!
             .let { it.value.toList() to it.identity }
     }
@@ -70,10 +75,27 @@ private fun MethodElement.getAnnotationPair(): Pair<List<String>, Int> {
 
 
 fun MethodElement.getPermissionStrings(): String {
-    return getAnnotation(PermissionsDispatcherNeeds::class.java)!!.value.joinToString(
+    return  when{
+        getAnnotation(PermissionsDispatcherNeeds::class.java) !=null -> getAnnotation(PermissionsDispatcherNeeds::class.java)!!.value
+        getAnnotation(PermissionsDispatcherRationale::class.java) !=null -> getAnnotation(PermissionsDispatcherRationale::class.java)!!.value
+        getAnnotation(PermissionDispatcherRationale::class.java) !=null -> getAnnotation(PermissionDispatcherRationale::class.java)!!.value
+        getAnnotation(PermissionsDispatcherDenied::class.java) !=null -> getAnnotation(PermissionsDispatcherDenied::class.java)!!.value
+        else -> arrayOf()
+    } .joinToString(
         separator = ","
     ) { "\"$it\"" }
 }
+fun MethodElement.getTargetPermissionStrings(): String {
+    return when{
+          getAnnotation(PermissionDispatcherRationale::class.java) !=null -> getAnnotation(PermissionDispatcherRationale::class.java)!!.target.let {
+              arrayOf(it)
+          }
+         else -> arrayOf()
+    } .joinToString(
+        separator = ","
+    ) { "\"$it\"" }
+}
+
 
 fun MethodElement.getKotlinMethodDeclaredParameter(): String {
     return this.getParameters()
@@ -101,6 +123,15 @@ private fun List<MethodElement>.find(element: MethodElement): MethodElement? {
     return null
 }
 
+fun List<MethodElement>.finds(element: MethodElement): MutableList<MethodElement> {
+    val list = mutableListOf<MethodElement>()
+    for (method in this) {
+        if (method.getAnnotationPair() == element.getAnnotationPair()) {
+            list.add(method)
+        }
+    }
+    return list
+}
 
 fun List<MethodElement>.generateKotlinDeniedMethod(element: MethodElement): String {
     val method = find(element) ?: return "{}"

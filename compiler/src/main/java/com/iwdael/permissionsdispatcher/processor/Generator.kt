@@ -10,5 +10,7 @@ interface Generator {
     fun addSpaceLine()
     fun addImport(importName: String)
     fun addPermissions(method: MethodElement)
+    fun addPermissions(k:String,v:String)
+    fun addTargetPermissions(method: MethodElement)
     fun addRequestPermission(method: MethodElement)
 }

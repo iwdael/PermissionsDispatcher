@@ -14,7 +14,7 @@ import com.iwdael.permissionsdispatcher.annotation.*
  * e-mail : iwdael@outlook.com
  */
 @PermissionsDispatcher
-class MainFragment : Fragment() {
+class MainPermissionRationaleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,21 +27,29 @@ class MainFragment : Fragment() {
         return view
     }
 
-    @PermissionsDispatcherNeeds(Manifest.permission.CAMERA)
+    @PermissionsDispatcherNeeds(
+        Manifest.permission.CAMERA,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
     fun takePhoto(path: String, name: String) {
         Log.v("dzq", "takePhoto")
     }
 
-    @PermissionsDispatcherDenied(Manifest.permission.CAMERA)
+    @PermissionsDispatcherDenied(
+        Manifest.permission.CAMERA,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
     fun takePhotoDenied(permission: List<String>, bannedResults: List<Boolean>) {
         Log.v(
             "dzq",
-            "takePhotoDenied:::[${permission.joinToString()}] , [${bannedResults.joinToString()}]"
+            "takePhotoDenied:[${permission.joinToString()}],[${bannedResults.joinToString()}]"
         )
     }
-
-    @PermissionsDispatcherRationale(Manifest.permission.CAMERA)
-    fun takePhotoRationale(rationale: PermissionsRationale) {
+    @PermissionDispatcherRationale(
+        Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
+        target = Manifest.permission.CAMERA
+    )
+    fun cameraRationale(rationale: PermissionsRationale) {
         Log.v("dzq", "takePhotoRationale")
         rationale.apply()
     }
