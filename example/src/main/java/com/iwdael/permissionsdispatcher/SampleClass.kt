@@ -3,7 +3,10 @@ package com.iwdael.permissionsdispatcher
 import android.Manifest
 import android.util.Log
 import com.iwdael.permissionsdispatcher.annotation.*
-
+/**
+ * author : iwdael
+ * e-mail : iwdael@outlook.com
+ */
 @PermissionsDispatcher
 class SampleClass {
 

@@ -6,7 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+
 /**
  * author : iwdael
  * e-mail : iwdael@outlook.com
@@ -27,6 +29,9 @@ private val MIN_SDK_PERMISSIONS = mapOf(
     "android.permission.ACCESS_BACKGROUND_LOCATION" to 29
 )
 
+/**
+ * hasPermissions(vararg permissions: String)
+ */
 private fun Context.hasPermission(permission: String): Boolean {
     return try {
         PermissionChecker.checkSelfPermission(
@@ -43,19 +48,19 @@ fun Context.hasPermissions(vararg permissions: String): Boolean {
     return true
 }
 
-fun Fragment.hasPermissions(vararg permissions: String): Boolean {
-    for (permission in permissions) if (context?.hasPermission(permission) != true) return false
-    return true
-}
+fun Fragment.hasPermissions(vararg permissions: String) =
+    context?.hasPermissions(*permissions) == true
 
-fun hasPermissions(vararg permissions: String): Boolean {
-    val context = permissionActivityLifecycle.activities.getOrNull(0)?.get() as AppCompatActivity?
-    context ?: return false
-    for (permission in permissions) if (!context.hasPermission(permission)) return false
-    return true
-}
+fun hasPermissions(vararg permissions: String) =
+    permissionActivityLifecycle.activities.getOrNull(0)?.get()?.hasPermissions(*permissions) == true
 
-fun AppCompatActivity.getPermissionFragment(): PermissionFragment? {
+fun hasPermissions(any: Any?, vararg permissions: String) =
+    permissionActivityLifecycle.activities.getOrNull(0)?.get()?.hasPermissions(*permissions) == true
+
+/**
+ * getPermissionFragment
+ */
+fun FragmentActivity.getPermissionFragment(): PermissionFragment? {
     var fragment: Fragment? =
         supportFragmentManager.findFragmentByTag(PermissionFragment::class.java.name)
     if (fragment == null) {
@@ -70,39 +75,16 @@ fun AppCompatActivity.getPermissionFragment(): PermissionFragment? {
     return fragment as PermissionFragment?
 }
 
-fun Fragment.getPermissionFragment(): PermissionFragment? {
-    activity ?: return null
-    var fragment: Fragment? =
-        activity!!.supportFragmentManager.findFragmentByTag(PermissionFragment::class.java.name)
-    if (fragment == null) {
-        fragment = PermissionFragment()
-        val fragmentManager: FragmentManager = activity!!.supportFragmentManager
-        fragmentManager
-            .beginTransaction()
-            .add(fragment, PermissionFragment::class.java.name)
-            .commitAllowingStateLoss()
-        fragmentManager.executePendingTransactions()
-    }
-    return fragment as PermissionFragment
-}
+fun Fragment.getPermissionFragment() = activity?.getPermissionFragment()
+fun getPermissionFragment() = (permissionActivityLifecycle.activities.getOrNull(0)
+    ?.get() as FragmentActivity?)?.getPermissionFragment()
 
-fun getPermissionFragment(): PermissionFragment? {
-    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get() as AppCompatActivity?
-    activity ?: return null
-    var fragment: Fragment? =
-        activity.supportFragmentManager.findFragmentByTag(PermissionFragment::class.java.name)
-    if (fragment == null) {
-        fragment = PermissionFragment()
-        val fragmentManager: FragmentManager = activity!!.supportFragmentManager
-        fragmentManager
-            .beginTransaction()
-            .add(fragment, PermissionFragment::class.java.name)
-            .commitAllowingStateLoss()
-        fragmentManager.executePendingTransactions()
-    }
-    return fragment as PermissionFragment
-}
+fun getPermissionFragment(any: Any?) = (permissionActivityLifecycle.activities.getOrNull(0)
+    ?.get() as FragmentActivity?)?.getPermissionFragment()
 
+/**
+ * checkRequestPermission
+ */
 fun Context.checkRequestPermission(vararg permissions: String): Array<String> {
     val keepPermissions =
         permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
@@ -110,19 +92,20 @@ fun Context.checkRequestPermission(vararg permissions: String): Array<String> {
 }
 
 fun Fragment.checkRequestPermission(vararg permissions: String): Array<String> {
-    val keepPermissions =
-        permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
-    return keepPermissions.filter { !hasPermissions(it) }.toTypedArray()
+    return context?.checkRequestPermission(*permissions) ?: (permissions.toList().toTypedArray())
 }
 
-fun checkRequestPermission(vararg permissions: String): Array<String> {
-    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get()
-    activity ?: return permissions.toList().toTypedArray()
-    val keepPermissions =
-        permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
-    return keepPermissions.filter { !hasPermissions(it) }.toTypedArray()
-}
+fun checkRequestPermission(vararg permissions: String) =
+    (permissionActivityLifecycle.activities.getOrNull(0)
+        ?.get())?.checkRequestPermission(*permissions) ?: (permissions.toList().toTypedArray())
 
+fun checkRequestPermission(any: Any?, vararg permissions: String) =
+    (permissionActivityLifecycle.activities.getOrNull(0)
+        ?.get())?.checkRequestPermission(*permissions) ?: (permissions.toList().toTypedArray())
+
+/**
+ * showRequestPermissionRationale
+ */
 fun Activity.showRequestPermissionRationale(permission: String): Boolean {
     return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
         shouldShowRequestPermissionRationale(permission)
@@ -139,14 +122,14 @@ fun Fragment.showRequestPermissionRationale(permission: String): Boolean {
     }
 }
 
-fun showRequestPermissionRationale(permission: String): Boolean {
-    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get()
-    activity ?: return true
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-        activity.shouldShowRequestPermissionRationale(permission)
-    } else {
-        true
-    }
-}
+fun showRequestPermissionRationale(permission: String) =
+    (permissionActivityLifecycle.activities.getOrNull(0)?.get())
+        ?.showRequestPermissionRationale(permission) == true
+
+
+fun showRequestPermissionRationale(any: Any?, permission: String) =
+    (permissionActivityLifecycle.activities.getOrNull(0)?.get())
+        ?.showRequestPermissionRationale(permission) == true
+
 
 internal val permissionActivityLifecycle = PermissionActivityLifecycle()
