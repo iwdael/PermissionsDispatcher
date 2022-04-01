@@ -33,7 +33,7 @@ public class MasterPermissionsRationaleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
         view.findViewById(R.id.btnCamera).setOnClickListener(v -> {
-//            MasterFragmentPermissionDispatcher.takePhotoWithPermission(this, "", "");
+            MasterPermissionsRationaleFragmentPermissionDispatcher.takePhotoWithPermission(this, "", "");
         });
         return view;
     }

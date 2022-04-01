@@ -48,6 +48,12 @@ fun Fragment.hasPermissions(vararg permissions: String): Boolean {
     return true
 }
 
+fun hasPermissions(vararg permissions: String): Boolean {
+    val context = permissionActivityLifecycle.activities.getOrNull(0)?.get() as AppCompatActivity?
+    context ?: return false
+    for (permission in permissions) if (!context.hasPermission(permission)) return false
+    return true
+}
 
 fun AppCompatActivity.getPermissionFragment(): PermissionFragment? {
     var fragment: Fragment? =
@@ -80,6 +86,23 @@ fun Fragment.getPermissionFragment(): PermissionFragment? {
     return fragment as PermissionFragment
 }
 
+fun getPermissionFragment(): PermissionFragment? {
+    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get() as AppCompatActivity?
+    activity ?: return null
+    var fragment: Fragment? =
+        activity.supportFragmentManager.findFragmentByTag(PermissionFragment::class.java.name)
+    if (fragment == null) {
+        fragment = PermissionFragment()
+        val fragmentManager: FragmentManager = activity!!.supportFragmentManager
+        fragmentManager
+            .beginTransaction()
+            .add(fragment, PermissionFragment::class.java.name)
+            .commitAllowingStateLoss()
+        fragmentManager.executePendingTransactions()
+    }
+    return fragment as PermissionFragment
+}
+
 fun Context.checkRequestPermission(vararg permissions: String): Array<String> {
     val keepPermissions =
         permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
@@ -87,6 +110,14 @@ fun Context.checkRequestPermission(vararg permissions: String): Array<String> {
 }
 
 fun Fragment.checkRequestPermission(vararg permissions: String): Array<String> {
+    val keepPermissions =
+        permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
+    return keepPermissions.filter { !hasPermissions(it) }.toTypedArray()
+}
+
+fun checkRequestPermission(vararg permissions: String): Array<String> {
+    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get()
+    activity ?: return permissions.toList().toTypedArray()
     val keepPermissions =
         permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
     return keepPermissions.filter { !hasPermissions(it) }.toTypedArray()
@@ -107,3 +138,15 @@ fun Fragment.showRequestPermissionRationale(permission: String): Boolean {
         true
     }
 }
+
+fun showRequestPermissionRationale(permission: String): Boolean {
+    val activity = permissionActivityLifecycle.activities.getOrNull(0)?.get()
+    activity ?: return true
+    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        activity.shouldShowRequestPermissionRationale(permission)
+    } else {
+        true
+    }
+}
+
+internal val permissionActivityLifecycle = PermissionActivityLifecycle()

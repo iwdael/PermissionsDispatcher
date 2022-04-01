@@ -22,7 +22,8 @@ class MainPermissionsRationaleFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_main, container, false)
         view.findViewById<View>(R.id.btnCamera).setOnClickListener {
-            takePhotoWithPermission("", "")
+//            takePhotoWithPermission("", "")
+            SampleClass().takePhotoWithPermission("","")
         }
         return view
     }
