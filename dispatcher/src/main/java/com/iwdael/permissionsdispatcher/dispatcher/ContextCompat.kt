@@ -87,7 +87,7 @@ fun getPermissionFragment(any: Any?) = (permissionActivityLifecycle.activities.g
  */
 fun Context.checkRequestPermission(vararg permissions: String): Array<String> {
     val keepPermissions =
-        permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[permissions] ?: 0) }
+        permissions.filter { BuildConfig.VERSION_CODE >= (MIN_SDK_PERMISSIONS[it] ?: 0) }
     return keepPermissions.filter { !hasPermissions(it) }.toTypedArray()
 }
 

@@ -3,3 +3,4 @@ include ':dispatcher'
 include ':annotation'
 include ':example'
 rootProject.name = "PermissionsDispatcher"
+include ':compiler2'

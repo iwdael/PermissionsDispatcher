@@ -41,7 +41,7 @@ class PermissionDispatcherProcessor : AbstractProcessor() {
                 writer.close()
             }
 
-        return true
+        return false
     }
 
     private fun findGenerateFile(element: PermissionDispatcher): File {
