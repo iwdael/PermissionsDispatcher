@@ -7,7 +7,7 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherNeeds;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherRationale;
-import com.iwdael.permissionsdispatcher.annotation.PermissionsRationale;
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale;
 
 import java.util.Arrays;
 import java.util.List;

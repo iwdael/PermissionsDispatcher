@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.iwdael.permissionsdispatcher.annotation.*
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale
 
 /**
  * author : iwdael

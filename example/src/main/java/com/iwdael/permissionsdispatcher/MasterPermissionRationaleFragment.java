@@ -16,7 +16,7 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherNeeds;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherRationale;
-import com.iwdael.permissionsdispatcher.annotation.PermissionsRationale;
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,23 +37,29 @@ public class MasterPermissionRationaleFragment extends Fragment {
         });
         return view;
     }
-    @PermissionsDispatcherNeeds(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+
+    @PermissionsDispatcherNeeds(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     public void takePhoto(String path, String name) {
         Log.v("dzq", "takePhoto");
     }
 
-    @PermissionsDispatcherDenied(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    @PermissionsDispatcherDenied(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     public void takePhotoDenied(List<String> permission, List<Boolean> bannedResults) {
         Log.v("dzq", "takePhotoDenied::" + Arrays.toString(permission.toArray()) + " , " + Arrays.toString(bannedResults.toArray()));
     }
 
-    @PermissionDispatcherRationale(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, target = Manifest.permission.CAMERA)
+    @PermissionsDispatcherRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
+    public void allPermissionRationales(PermissionsRationale rationale){
+
+    }
+
+    @PermissionDispatcherRationale(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE}, target = Manifest.permission.CAMERA)
     public void cameraRationale(PermissionsRationale rationale) {
         Log.v("dzq", "takePhotoRationale");
         rationale.apply();
     }
 
-    @PermissionDispatcherRationale(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, target = Manifest.permission.READ_EXTERNAL_STORAGE)
+    @PermissionDispatcherRationale(value = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE}, target = Manifest.permission.READ_EXTERNAL_STORAGE)
     public void storageRationale(PermissionsRationale rationale) {
         Log.v("dzq", "takePhotoRationale");
         rationale.apply();

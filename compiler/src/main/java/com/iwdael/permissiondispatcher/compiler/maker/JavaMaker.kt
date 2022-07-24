@@ -1,15 +1,17 @@
-package com.iwdael.permissiondispatcher.compiler2.maker
+package com.iwdael.permissiondispatcher.compiler.maker
 
 import com.iwdael.annotationprocessorparser.Class
-import com.iwdael.permissiondispatcher.compiler2.compat.isSameGroup
-import com.iwdael.permissiondispatcher.compiler2.permission.PermissionGroup
+import com.iwdael.permissiondispatcher.compiler.compat.createJavaFiled
+import com.iwdael.permissiondispatcher.compiler.compat.createJavaMethod
+import com.iwdael.permissiondispatcher.compiler.compat.hasSame
+import com.iwdael.permissiondispatcher.compiler.compat.isSameGroup
+import com.iwdael.permissiondispatcher.compiler.permission.PermissionGroup
 import com.iwdael.permissionsdispatcher.annotation.PermissionDispatcherRationale
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherNeeds
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherRationale
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
-import java.util.*
 import javax.annotation.processing.Filer
 import javax.lang.model.element.Modifier
 
@@ -39,27 +41,34 @@ class JavaMaker(private val clazz: Class) : Maker {
             clazz.methods
                 .filter { it.getAnnotation(PermissionDispatcherRationale::class.java) != null }
                 .toMutableList()
-
+        val group = mutableListOf<PermissionGroup>()
         while (needs.isNotEmpty()) {
-            val gNeeds = needs.removeAt(0)
+            val gNeed = needs.removeAt(0)
             val gDenied =
                 denies.filter {
-                    gNeeds.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
+                    gNeed.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
                         .isSameGroup(it.getAnnotation(PermissionsDispatcherDenied::class.java)!!)
                 }
-            if (gDenied.size > 1) throw Exception("There can only be at most one `PermissionsDispatcherDenied` in the same set of permissions:${gNeeds.owner}.${gNeeds.name}")
+            if (gDenied.size > 1) throw Exception("There can only be at most one `PermissionsDispatcherDenied` in the same set of permissions:${gNeed.owner}.${gNeed.name}")
 
             val gRationales = rationales.filter {
-                gNeeds.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
+                gNeed.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
                     .isSameGroup(it.getAnnotation(PermissionsDispatcherRationale::class.java)!!)
             }
-            if (gDenied.size > 1) throw Exception("There can only be at most one `PermissionsDispatcherDenied` in the same set of permissions:${gNeeds.owner}.${gNeeds.name}")
+            if (gDenied.size > 1) throw Exception("There can only be at most one `PermissionsDispatcherDenied` in the same set of permissions:${gNeed.owner}.${gNeed.name}")
 
             val gRationale = rationale.filter {
-                gNeeds.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
+                gNeed.getAnnotation(PermissionsDispatcherNeeds::class.java)!!
                     .isSameGroup(it.getAnnotation(PermissionDispatcherRationale::class.java)!!)
             }
-            PermissionGroup(gNeeds, gDenied.firstOrNull(), gRationales.firstOrNull(), gRationale)
+
+            if (gRationale.map { it.getAnnotation(PermissionDispatcherRationale::class.java)!! }
+                    .hasSame())
+                throw Exception("There can only be at most one `PermissionsDispatcherDenied` in the same set of permissions:${gNeed.owner}.${gNeed.name}")
+
+            group.add(
+                PermissionGroup(gNeed, gDenied.firstOrNull(), gRationales.firstOrNull(), gRationale)
+            )
         }
         JavaFile
             .builder(
@@ -67,6 +76,8 @@ class JavaMaker(private val clazz: Class) : Maker {
                 TypeSpec
                     .classBuilder(classNameGenerator)
                     .addModifiers(Modifier.PUBLIC)
+                    .addFields(group.map { it.createJavaFiled() }.flatMap { it })
+                    .addMethods(group.map { it.createJavaMethod() }.flatMap { it })
                     .build()
             )
             .build()

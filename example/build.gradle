@@ -27,6 +27,6 @@ dependencies {
     implementation dep.appcompat
     implementation dep.constraintlayout
     kapt project(path: ':compiler')
-    kapt project(path: ':compiler2')
+//    kapt project(path: ':compiler')
     implementation project(path: ':dispatcher')
 }

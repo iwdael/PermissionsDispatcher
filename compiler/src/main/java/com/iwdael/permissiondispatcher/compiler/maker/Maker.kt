@@ -1,4 +1,4 @@
-package com.iwdael.permissiondispatcher.compiler2.maker
+package com.iwdael.permissiondispatcher.compiler.maker
 
 import javax.annotation.processing.Filer
 

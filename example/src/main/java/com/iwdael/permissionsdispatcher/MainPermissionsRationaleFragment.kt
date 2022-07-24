@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.iwdael.permissionsdispatcher.annotation.*
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale
 
 /**
  * author : iwdael
@@ -23,13 +24,13 @@ class MainPermissionsRationaleFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_main, container, false)
         view.findViewById<View>(R.id.btnCamera).setOnClickListener {
 //            takePhotoWithPermission("", "")
-            SampleClass().takePhotoWithPermission("","")
+//            SampleClass().takePhotoWithPermission("","")
         }
         return view
     }
 
     @PermissionsDispatcherNeeds(Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE)
-    fun takePhoto(path: String, name: String) {
+    fun takePhoto(path:  String, name: String) {
         Log.v("dzq", "takePhoto")
     }
 

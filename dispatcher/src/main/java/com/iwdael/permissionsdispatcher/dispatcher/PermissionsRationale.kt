@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.annotation
+package com.iwdael.permissionsdispatcher.dispatcher
 /**
  * author : iwdael
  * e-mail : iwdael@outlook.com

@@ -16,7 +16,7 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherNeeds;
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherRationale;
-import com.iwdael.permissionsdispatcher.annotation.PermissionsRationale;
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +33,7 @@ public class MasterPermissionsRationaleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
         view.findViewById(R.id.btnCamera).setOnClickListener(v -> {
-            MasterPermissionsRationaleFragmentPermissionDispatcher.takePhotoWithPermission(this, "", "");
+//            MasterPermissionsRationaleFragmentPermissionDispatcher.takePhotoWithPermission(this, "", "");
         });
         return view;
     }

@@ -1,9 +1,9 @@
-package com.iwdael.permissiondispatcher.compiler2
+package com.iwdael.permissiondispatcher.compiler
 
 import com.google.auto.service.AutoService
 import com.iwdael.annotationprocessorparser.Class
-import com.iwdael.permissiondispatcher.compiler2.maker.JavaMaker
-import com.iwdael.permissiondispatcher.compiler2.maker.KotlinMaker
+import com.iwdael.permissiondispatcher.compiler.maker.JavaMaker
+import com.iwdael.permissiondispatcher.compiler.maker.KotlinMaker
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.Processor
@@ -28,6 +28,6 @@ class AnnotationProcessor : AbstractProcessor() {
             ?.map { Class(it) }
             ?.map { if (it.getAnnotation(Metadata::class.java)==null) JavaMaker(it) else KotlinMaker(it) }
             ?.forEach { it.make(processingEnv.filer) }
-        return false
+        return true
     }
 }

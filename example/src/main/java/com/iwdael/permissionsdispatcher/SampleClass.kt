@@ -3,11 +3,13 @@ package com.iwdael.permissionsdispatcher
 import android.Manifest
 import android.util.Log
 import com.iwdael.permissionsdispatcher.annotation.*
+import com.iwdael.permissionsdispatcher.dispatcher.PermissionsRationale
+
 /**
  * author : iwdael
  * e-mail : iwdael@outlook.com
  */
-@PermissionsDispatcher
+//@PermissionsDispatcher
 class SampleClass {
 
     @PermissionsDispatcherNeeds(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)

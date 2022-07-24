@@ -5,10 +5,14 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation project(path: ':annotation')
-    implementation dep.kotlinStdlibJdk7
+    implementation dep.javapoet
+    implementation dep.kotlinpoet
+    implementation dep.annotationprocessorparser
     implementation dep.autoService
+    implementation dep.kotlinReflect
     kapt dep.autoService
 }
-
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
