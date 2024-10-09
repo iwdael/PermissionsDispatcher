@@ -11,13 +11,13 @@ dependencies {
     implementation(libs.kotlinsymbolprocessor)
     implementation(project(":annotation"))
 }
-
-publishing {
-    publications {
-        register("release", MavenPublication::class) {
-            groupId = "com.iwdael.permissionsdispatcher"
-            artifactId = "compiler"
-            version = "0.0.1"
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.iwdael.permissionsdispatcher"
+                artifactId = "compiler"
+            }
         }
     }
 }

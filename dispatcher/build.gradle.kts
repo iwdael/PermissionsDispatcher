@@ -33,13 +33,13 @@ dependencies {
     implementation(libs.androidx.appcompat)
     api(project(":annotation"))
 }
-
-publishing {
-    publications {
-        register("release", MavenPublication::class) {
-            groupId = "com.iwdael.permissionsdispatcher"
-            artifactId = "dispatcher"
-            version = "0.0.1"
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.iwdael.permissionsdispatcher"
+                artifactId = "dispatcher"
+            }
         }
     }
 }
