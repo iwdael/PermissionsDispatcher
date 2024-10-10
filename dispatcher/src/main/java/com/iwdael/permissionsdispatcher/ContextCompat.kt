@@ -43,7 +43,7 @@ private fun Context.hasPermission(permission: String): Boolean {
     }
 }
 
-private fun Context.hasPermissions(vararg permissions: String) = permissions.any { !hasPermission(it) }
+private fun Context.hasPermissions(vararg permissions: String) = !permissions.any { !hasPermission(it) }
 private fun Fragment.hasPermissions(vararg permissions: String) = context?.hasPermissions(*permissions) == true
 private fun hasPermissions(vararg permissions: String) = currentActivity?.hasPermissions(*permissions) == true
 
@@ -51,12 +51,12 @@ private fun hasPermissions(vararg permissions: String) = currentActivity?.hasPer
 /**
  * checkRequestPermission
  */
-fun Context.checkRequestPermission(vararg permissions: String) = permissions.filter { Build.VERSION.SDK_INT >= (MIN_SDK_PERMISSIONS[it] ?: 0) }.filter { !hasPermissions(it) }.toTypedArray()
-fun Fragment.checkRequestPermission(vararg permissions: String): Array<String> {
-    return context?.checkRequestPermission(*permissions) ?: (permissions.toList().toTypedArray())
+fun Context.checkRequestPermission(vararg permissions: Permission) = permissions.filter { Build.VERSION.SDK_INT in it.min..it.max }.map { it.value }.filter { !hasPermissions(it) }.toTypedArray()
+fun Fragment.checkRequestPermission(vararg permissions: Permission): Array<String> {
+    return context?.checkRequestPermission(*permissions) ?: (permissions.toList().map { it.value }.toTypedArray())
 }
 
-fun checkRequestPermission(vararg permissions: String) = currentActivity?.checkRequestPermission(*permissions) ?: (permissions.toList().toTypedArray())
+fun checkRequestPermission(vararg permissions: Permission) = currentActivity?.checkRequestPermission(*permissions) ?: (permissions.map { it.value }.toList().toTypedArray())
 
 
 /**
@@ -103,4 +103,4 @@ internal val currentActivity: Activity?
         return permissionActivityLifecycle.activities.firstOrNull()?.get()
     }
 
-internal val permissionActivityLifecycle = PermissionActivityLifecycle()
+val permissionActivityLifecycle = PermissionActivityLifecycle()

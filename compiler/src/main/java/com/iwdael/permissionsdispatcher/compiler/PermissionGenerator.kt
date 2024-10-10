@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.processor
+package com.iwdael.permissionsdispatcher.compiler
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.iwdael.kotlinsymbolprocessor.KSPFunction
@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.ksp.writeTo
  */
 private const val CLASS_PERMISSION_CALLBACK = "com.iwdael.permissionsdispatcher.PermissionCallback"
 private const val CLASS_PERMISSION_RATIONALE = "com.iwdael.permissionsdispatcher.annotation.PermissionsRationale"
+private const val CLASS_PERMISSION = "com.iwdael.permissionsdispatcher.Permission"
 private const val ARRAY_OF = "arrayOf"
 
 class PermissionGenerator(private val permission: Permission) {
@@ -52,13 +53,13 @@ class PermissionGenerator(private val permission: Permission) {
     private fun injectPermission(isSingle: Boolean, index: Int, func: KSPFunction, curFunc: KSPFunction, nextFunc: KSPFunction?): (FileSpec.Builder.() -> Unit) = {
         if (isSingle)
             addProperty(
-                PropertySpec.builder(curFunc.permissionName, Array::class.asTypeName().plusParameter(String::class.asTypeName()))
+                PropertySpec.builder(curFunc.permissionName, Array::class.asTypeName().plusParameter(CLASS_PERMISSION.asTypeName()))
                     .addModifiers(KModifier.PRIVATE)
-                    .initializer(ARRAY_OF.funInvoke(curFunc.targetPermissionValue)).build()
+                    .initializer(ARRAY_OF.funInvoke(curFunc.targetPermissionValue(func))).build()
             )
         else
             addProperty(
-                PropertySpec.builder(curFunc.permissionName, Array::class.asTypeName().plusParameter(String::class.asTypeName()))
+                PropertySpec.builder(curFunc.permissionName, Array::class.asTypeName().plusParameter(CLASS_PERMISSION.asTypeName()))
                     .addModifiers(KModifier.PRIVATE)
                     .initializer(ARRAY_OF.funInvoke(curFunc.permissionValue)).build()
             )

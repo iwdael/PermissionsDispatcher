@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.processor
+package com.iwdael.permissionsdispatcher.compiler
 
 /**
  * author : iwdael

@@ -1,8 +1,9 @@
 package com.iwdael.permissionsdispatcher.annotation
+
 /**
  * author : iwdael
  * e-mail : iwdael@outlook.com
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.BINARY)
-annotation class PermissionsDispatcherNeeds(vararg val value: Permission, val identity: Int = 0)
+annotation class Permission(val value: String, val min: Int = 23, val max: Int = Int.MAX_VALUE)

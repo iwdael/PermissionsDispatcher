@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.processor
+package com.iwdael.permissionsdispatcher.compiler
 
 import com.iwdael.kotlinsymbolprocessor.KSPFunction
 import com.iwdael.permissionsdispatcher.annotation.PermissionDispatcherRationale
@@ -30,5 +30,11 @@ val KSPFunction.values: Pair<List<String>, Int>
 
 fun List<KSPFunction>.groups(element: KSPFunction) = this.filter { it.values == element.values }
 val KSPFunction.permissionName: String get() = "permission_${name}_${kspParameters.joinToString(separator = "_") { it.name }}_${values.second}".uppercase(Locale.getDefault())
-val KSPFunction.permissionValue: String get() = values.first.joinToString { "\"${it}\"" }
-val KSPFunction.targetPermissionValue: String get() = "\"${this.annotation(PermissionDispatcherRationale::class)!!.target}\""
+val KSPFunction.permissionValue: String get() = this.annotation(PermissionsDispatcherNeeds::class)!!.value.map { "Permission(\"${it.value}\", ${it.min}, ${it.max})" }.joinToString()
+fun KSPFunction.targetPermissionValue(func: KSPFunction): String {
+    return func.annotation(PermissionsDispatcherNeeds::class)!!.value
+        .first { it.value == this.annotation(PermissionDispatcherRationale::class)!!.target }
+        .let {
+            "Permission(\"${it.value}\", ${it.min}, ${it.max})"
+        }
+}

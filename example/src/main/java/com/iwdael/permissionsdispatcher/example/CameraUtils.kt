@@ -1,6 +1,7 @@
 package com.iwdael.permissionsdispatcher.example
 
 import android.util.Log
+import com.iwdael.permissionsdispatcher.annotation.Permission
 import com.iwdael.permissionsdispatcher.annotation.PermissionDispatcherRationale
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcherDenied
@@ -17,13 +18,13 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsRationale
 class CameraUtils {
     @PermissionsDispatcherNeeds(
         value = [
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.WRITE_CALENDAR
+            Permission(value = android.Manifest.permission.CAMERA),
+            Permission(value = android.Manifest.permission.ACCESS_FINE_LOCATION),
+            Permission(value = android.Manifest.permission.WRITE_CALENDAR)
         ],
         identity = 1
     )
-    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String>>>>) {
+    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String?>?>?>?>?) {
         Log.v("dzq", "captureCamera ")
     }
 
@@ -49,7 +50,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleCamera(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleCamera")
+        Log.v("dzq", "rationaleCamera")
         rationale.apply()
     }
 
@@ -64,7 +65,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleLocation(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleLocation")
+        Log.v("dzq", "rationaleLocation")
         rationale.apply()
     }
 
@@ -79,7 +80,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleCalendar(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleCalendar")
+        Log.v("dzq", "rationaleCalendar")
         rationale.apply()
     }
 

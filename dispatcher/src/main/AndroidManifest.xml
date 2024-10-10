@@ -2,8 +2,8 @@
     package="com.iwdael.permissionsdispatcher">
 
     <application>
-        <provider
-            android:authorities="com.iwdale.permission.contentprovider"
-            android:name=".PermissionContentProvider"/>
+<!--        <provider-->
+<!--            android:authorities="com.iwdale.permission.contentprovider"-->
+<!--            android:name=".PermissionContentProvider"/>-->
     </application>
 </manifest>
