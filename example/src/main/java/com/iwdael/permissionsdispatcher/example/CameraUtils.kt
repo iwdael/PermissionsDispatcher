@@ -23,7 +23,7 @@ class CameraUtils {
         ],
         identity = 1
     )
-    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String>>>>) {
+    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String?>?>?>?>?) {
         Log.v("dzq", "captureCamera ")
     }
 
@@ -49,7 +49,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleCamera(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleCamera")
+        Log.v("dzq", "rationaleCamera")
         rationale.apply()
     }
 
@@ -64,7 +64,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleLocation(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleLocation")
+        Log.v("dzq", "rationaleLocation")
         rationale.apply()
     }
 
@@ -79,7 +79,7 @@ class CameraUtils {
         identity = 1
     )
     fun rationaleCalendar(rationale: PermissionsRationale) {
-        Log.v("dzq","rationaleCalendar")
+        Log.v("dzq", "rationaleCalendar")
         rationale.apply()
     }
 

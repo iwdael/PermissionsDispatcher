@@ -22,7 +22,7 @@ class CameraUtils2 {
         ],
         identity = 1
     )
-    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String>>>>) {
+    fun captureCamera(width: Int, height: Int, paths: List<List<List<List<String?>?>?>?>?) {
         Log.v("dzq", "captureCamera ")
     }
 

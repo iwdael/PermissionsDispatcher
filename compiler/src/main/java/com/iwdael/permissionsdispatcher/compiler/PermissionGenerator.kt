@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.processor
+package com.iwdael.permissionsdispatcher.compiler
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.iwdael.kotlinsymbolprocessor.KSPFunction

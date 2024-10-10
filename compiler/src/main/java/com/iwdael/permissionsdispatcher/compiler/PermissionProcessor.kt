@@ -1,4 +1,4 @@
-package com.iwdael.permissionsdispatcher.processor
+package com.iwdael.permissionsdispatcher.compiler
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
@@ -17,7 +17,7 @@ class PermissionProcessor(private val codeGenerator: CodeGenerator, private val 
     SymbolProcessor {
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(PermissionsDispatcher::class.java.name)
-            .filter { it.validate() }
+//            .filter { it.validate() }
             .map { it.asKspClass }
             .map { Permission(it) }
             .map { PermissionGenerator(it) }

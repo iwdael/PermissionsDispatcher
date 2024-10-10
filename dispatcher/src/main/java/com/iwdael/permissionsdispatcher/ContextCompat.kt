@@ -43,7 +43,7 @@ private fun Context.hasPermission(permission: String): Boolean {
     }
 }
 
-private fun Context.hasPermissions(vararg permissions: String) = permissions.any { !hasPermission(it) }
+private fun Context.hasPermissions(vararg permissions: String) = !permissions.any { !hasPermission(it) }
 private fun Fragment.hasPermissions(vararg permissions: String) = context?.hasPermissions(*permissions) == true
 private fun hasPermissions(vararg permissions: String) = currentActivity?.hasPermissions(*permissions) == true
 

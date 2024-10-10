@@ -19,7 +19,7 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsRationale
 class MainPermissionRationaleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        captureCameraWidthPermission(10,10,  listOf(""))
+//        captureCameraWidthPermission(10, 10, null)
     }
 
     @PermissionsDispatcherNeeds(
@@ -30,7 +30,7 @@ class MainPermissionRationaleActivity : AppCompatActivity() {
         ],
         identity = 1
     )
-    fun captureCamera(width: Int, height: Int, paths: List<String>) {
+    fun captureCamera(width: Int, height: Int, paths: List<List<String?>?>?) {
         Log.v("dzq", "captureCamera ")
     }
 

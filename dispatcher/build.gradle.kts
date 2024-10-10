@@ -36,10 +36,12 @@ dependencies {
 
 publishing {
     publications {
-        register("release", MavenPublication::class) {
+        create<MavenPublication>("release") {
             groupId = "com.iwdael.permissionsdispatcher"
             artifactId = "dispatcher"
-            version = "0.0.1"
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
