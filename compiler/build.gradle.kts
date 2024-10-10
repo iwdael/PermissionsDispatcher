@@ -12,12 +12,22 @@ dependencies {
     implementation(project(":annotation"))
 }
 
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.getByName("main").allSource)
+    from("README.md") {
+        into("META-INF")
+    }
+}
+
 publishing {
     publications {
-        register("release", MavenPublication::class) {
+        create<MavenPublication>("release") {
             groupId = "com.iwdael.permissionsdispatcher"
             artifactId = "compiler"
-            version = "0.0.1"
+            from(components["java"])
+            artifact(sourcesJar)
         }
     }
 }
