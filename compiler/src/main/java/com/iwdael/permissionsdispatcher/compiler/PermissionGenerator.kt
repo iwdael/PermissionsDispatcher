@@ -127,7 +127,7 @@ class PermissionGenerator(private val permission: Permission) {
     private fun injectAnonymous(isSingle: Boolean, func: KSPFunction, curFunc: KSPFunction, nextFunc: KSPFunction?): (FunSpec.Builder.() -> Unit) = {
         addModifiers(KModifier.OVERRIDE)
         addParameter("result", Map::class.asTypeName().parameterizedBy(String::class.asTypeName(), Boolean::class.asTypeName()))
-        beginControlFlow("if (!result.values.any { it == false })")
+        beginControlFlow("if (result.values.all { it })")
         addStatement((nextFunc?.name?.let { "${it}WidthPermission" } ?: func.name).funInvoke(*func.kspParameters.map { it.name }.toTypedArray()))
         nextControlFlow("else")
         val denied = permission.denied.groups(curFunc).firstOrNull()
