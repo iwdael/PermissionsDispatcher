@@ -1,6 +1,7 @@
 package com.iwdael.permissionsdispatcher.compiler
 
 import com.google.devtools.ksp.processing.CodeGenerator
+import com.google.devtools.ksp.processing.Dependencies
 import com.iwdael.kotlinsymbolprocessor.KSPFunction
 import com.iwdael.kotlinsymbolprocessor.asTypeName
 import com.iwdael.kotlinsymbolprocessor.asParameter
@@ -25,16 +26,15 @@ private const val CLASS_PERMISSION = "com.iwdael.permissionsdispatcher.Permissio
 private const val ARRAY_OF = "arrayOf"
 
 class PermissionGenerator(private val permission: Permission) {
-    fun write(codeGenerator: CodeGenerator) {
+    fun write(codeGenerator: CodeGenerator, dependencies: Dependencies) {
         FileSpec.builder(permission.packageName, permission.targetName)
-            .indent("    ")
             .addImport("androidx.activity.result.contract", "ActivityResultContracts")
             .addImport("com.iwdael.permissionsdispatcher", "checkRequestPermission")
             .addImport("com.iwdael.permissionsdispatcher", "showRequestPermissionRationale")
             .addImport("com.iwdael.permissionsdispatcher", "registerPermissionLauncher")
             .apply { injectCode().invoke(this) }
             .build()
-            .writeTo(codeGenerator, false)
+            .writeTo(codeGenerator, dependencies)
     }
 
     private fun injectCode(): (FileSpec.Builder.() -> Unit) = { permission.need.forEach { injectNeed(it).invoke(this) } }
@@ -65,7 +65,7 @@ class PermissionGenerator(private val permission: Permission) {
             )
 
 
-        val funName = if (index == 0) "${func.name}WidthPermission" else "${curFunc.name}WidthPermission"
+        val funName = if (index == 0) "${func.name}WithPermission" else "${curFunc.name}WithPermission"
         addFunction(
             FunSpec.builder(funName)
                 .apply { if (index != 0) addModifiers(KModifier.PRIVATE) }
@@ -80,7 +80,7 @@ class PermissionGenerator(private val permission: Permission) {
         addParameters(func.kspParameters.map { it.asParameter() })
         addStatement("val requestPermission = checkRequestPermission(*%N)", curFunc.permissionName)
         beginControlFlow("if (requestPermission.isEmpty())")
-        addStatement((nextFunc?.name?.let { "${it}WidthPermission" } ?: func.name).funInvoke(*func.kspParameters.map { it.name }.toTypedArray()))
+        addStatement((nextFunc?.name?.let { "${it}WithPermission" } ?: func.name).funInvoke(*func.kspParameters.map { it.name }.toTypedArray()))
         nextControlFlow("else")
         addStatement(
             "val permissionLauncher = registerPermissionLauncher(%L)",
@@ -127,8 +127,8 @@ class PermissionGenerator(private val permission: Permission) {
     private fun injectAnonymous(isSingle: Boolean, func: KSPFunction, curFunc: KSPFunction, nextFunc: KSPFunction?): (FunSpec.Builder.() -> Unit) = {
         addModifiers(KModifier.OVERRIDE)
         addParameter("result", Map::class.asTypeName().parameterizedBy(String::class.asTypeName(), Boolean::class.asTypeName()))
-        beginControlFlow("if (!result.values.any { it == false })")
-        addStatement((nextFunc?.name?.let { "${it}WidthPermission" } ?: func.name).funInvoke(*func.kspParameters.map { it.name }.toTypedArray()))
+        beginControlFlow("if (result.values.all { it })")
+        addStatement((nextFunc?.name?.let { "${it}WithPermission" } ?: func.name).funInvoke(*func.kspParameters.map { it.name }.toTypedArray()))
         nextControlFlow("else")
         val denied = permission.denied.groups(curFunc).firstOrNull()
         if (denied != null) {

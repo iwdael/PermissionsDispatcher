@@ -10,6 +10,6 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
  */
 class PermissionProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return PermissionProcessor(environment.codeGenerator, environment.logger)
+        return PermissionProcessor(environment)
     }
 }

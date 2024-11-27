@@ -5,5 +5,5 @@ package com.iwdael.permissionsdispatcher.annotation
  * e-mail : iwdael@outlook.com
  */
 @Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.BINARY)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class PermissionsDispatcher
