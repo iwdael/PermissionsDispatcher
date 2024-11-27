@@ -1,10 +1,11 @@
 package com.iwdael.permissionsdispatcher.compiler
 
-import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.KSPLogger
+import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
+import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
 import com.iwdael.kotlinsymbolprocessor.asKspClass
 import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher
@@ -13,15 +14,20 @@ import com.iwdael.permissionsdispatcher.annotation.PermissionsDispatcher
  * author : iwdael
  * e-mail : iwdael@outlook.com
  */
-class PermissionProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) :
-    SymbolProcessor {
+class PermissionProcessor(private val env: SymbolProcessorEnvironment) : SymbolProcessor {
+    private var processed = false
     override fun process(resolver: Resolver): List<KSAnnotated> {
+        if (processed) return emptyList()
+        processed = true
+        val dependencies = Dependencies(false, *resolver.getAllFiles().toList().toTypedArray())
         resolver.getSymbolsWithAnnotation(PermissionsDispatcher::class.java.name)
-//            .filter { it.validate() }
+            .filter { it is KSClassDeclaration }
             .map { it.asKspClass }
             .map { Permission(it) }
             .map { PermissionGenerator(it) }
-            .forEach { it.write(codeGenerator) }
+            .onEach {
+                it.write(env.codeGenerator, dependencies)
+            }
         return emptyList()
     }
 }
