@@ -32,11 +32,6 @@ class PermissionActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        activities.forEach { weak ->
-            if (weak.get() == activity) {
-                activities.remove(weak)
-                return@forEach
-            }
-        }
+        activities.removeAll { it.get() == activity }
     }
 }
