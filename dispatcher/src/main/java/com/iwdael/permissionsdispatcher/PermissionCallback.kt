@@ -7,16 +7,19 @@ import androidx.activity.result.ActivityResultLauncher
  * author : iwdael
  * e-mail : iwdael@outlook.com
  */
-abstract class PermissionCallback : ActivityResultCallback<Map<String, Boolean>> {
-    private var permissionLauncher: ActivityResultLauncher<Array<String>>? = null
-    fun attachPermissionLauncher(launcher: ActivityResultLauncher<Array<String>>) {
-        permissionLauncher = launcher
-    }
+class PermissionCallback : ActivityResultCallback<Map<String, Boolean>> {
+    private val listeners = mutableListOf<PermissionListener>()
 
     override fun onActivityResult(result: Map<String, Boolean>) {
-        permissionLauncher?.unregister()
-        onPermissionResult(result)
+        listeners.forEach { it.onPermissionResult(result) }
+        listeners.clear()
     }
 
-    abstract fun onPermissionResult(result: Map<String, Boolean>)
+    fun registerPermissionListener(listener: PermissionListener) {
+        this.listeners.add(listener)
+    }
+}
+
+interface PermissionListener {
+    fun onPermissionResult(result: Map<String, Boolean>)
 }

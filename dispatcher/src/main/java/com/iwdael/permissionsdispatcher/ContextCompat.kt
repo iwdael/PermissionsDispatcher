@@ -80,16 +80,16 @@ fun Fragment.showRequestPermissionRationale(permission: String): Boolean {
 
 fun showRequestPermissionRationale(permission: String) = currentActivity?.showRequestPermissionRationale(permission) == true
 
-fun ComponentActivity.registerPermissionLauncher(callback: PermissionCallback) =
-    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
-        .apply { callback.attachPermissionLauncher(this) }
+
+fun ComponentActivity.registerPermissionLauncher(callback: PermissionListener) = permissionActivityLifecycle.createActivityLauncher(this)
+    .apply {
+        if (this == null) throw IllegalStateException("Activity ${this@registerPermissionLauncher} not support")
+        this.callback.registerPermissionListener(callback)
+    }
+    .let { it!!.launcher }
 
 
-//fun Fragment.registerPermissionLauncher(callback: PermissionCallback) = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
-//    .apply { callback.attachPermissionLauncher(this) }
-
-
-fun registerPermissionLauncher(callback: PermissionCallback): ActivityResultLauncher<Array<String>> {
+fun registerPermissionLauncher(callback: PermissionListener): ActivityResultLauncher<Array<String>> {
     val activity = currentActivity
     if (activity is ComponentActivity) {
         return activity.registerPermissionLauncher(callback)
@@ -100,7 +100,7 @@ fun registerPermissionLauncher(callback: PermissionCallback): ActivityResultLaun
 
 internal val currentActivity: Activity?
     get() {
-        return permissionActivityLifecycle.activities.firstOrNull()?.get()
+        return permissionActivityLifecycle.activities.firstOrNull()?.get()?.activity
     }
 
 val permissionActivityLifecycle = PermissionActivityLifecycle()
