@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 
@@ -80,19 +79,19 @@ fun Fragment.showRequestPermissionRationale(permission: String): Boolean {
 
 fun showRequestPermissionRationale(permission: String) = currentActivity?.showRequestPermissionRationale(permission) == true
 
-fun ComponentActivity.registerPermissionLauncher(callback: PermissionCallback) =
-    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
-        .apply { callback.attachPermissionLauncher(this) }
+
+fun ComponentActivity.registerPermissionLauncher(listener: PermissionListener) = permissionActivityLifecycle.createActivityLauncher(this)
+    .apply {
+        if (this == null) throw IllegalStateException("Activity ${this@registerPermissionLauncher} not support")
+        callback.registerPermissionListener(listener)
+    }
+    .let { it!!.launcher }
 
 
-//fun Fragment.registerPermissionLauncher(callback: PermissionCallback) = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
-//    .apply { callback.attachPermissionLauncher(this) }
-
-
-fun registerPermissionLauncher(callback: PermissionCallback): ActivityResultLauncher<Array<String>> {
+fun registerPermissionLauncher(listener: PermissionListener): ActivityResultLauncher<Array<String>> {
     val activity = currentActivity
     if (activity is ComponentActivity) {
-        return activity.registerPermissionLauncher(callback)
+        return activity.registerPermissionLauncher(listener)
     } else {
         throw RuntimeException("not found androidx.activity.ComponentActivity")
     }
@@ -100,7 +99,7 @@ fun registerPermissionLauncher(callback: PermissionCallback): ActivityResultLaun
 
 internal val currentActivity: Activity?
     get() {
-        return permissionActivityLifecycle.activities.firstOrNull()?.get()
+        return permissionActivityLifecycle.activities.firstOrNull()?.activity
     }
 
 val permissionActivityLifecycle = PermissionActivityLifecycle()

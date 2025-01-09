@@ -20,7 +20,7 @@ import com.squareup.kotlinpoet.ksp.writeTo
  * @since 2024/8/21
  * @desc this is PermissionGenerator
  */
-private const val CLASS_PERMISSION_CALLBACK = "com.iwdael.permissionsdispatcher.PermissionCallback"
+private const val CLASS_PERMISSION_LISTENER = "com.iwdael.permissionsdispatcher.PermissionListener"
 private const val CLASS_PERMISSION_RATIONALE = "com.iwdael.permissionsdispatcher.annotation.PermissionsRationale"
 private const val CLASS_PERMISSION = "com.iwdael.permissionsdispatcher.Permission"
 private const val ARRAY_OF = "arrayOf"
@@ -85,7 +85,7 @@ class PermissionGenerator(private val permission: Permission) {
         addStatement(
             "val permissionLauncher = registerPermissionLauncher(%L)",
             TypeSpec.anonymousClassBuilder()
-                .superclass(CLASS_PERMISSION_CALLBACK.asTypeName())
+                .addSuperinterface(CLASS_PERMISSION_LISTENER.asTypeName())
                 .addFunction(
                     FunSpec.builder("onPermissionResult")
                         .apply { injectAnonymous(isSingle, func, curFunc, nextFunc).invoke(this) }
