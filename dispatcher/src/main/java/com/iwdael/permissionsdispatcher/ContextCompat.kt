@@ -85,8 +85,8 @@ fun ComponentActivity.registerPermissionLauncher(callback: PermissionCallback) =
         .apply { callback.attachPermissionLauncher(this) }
 
 
-fun Fragment.registerPermissionLauncher(callback: PermissionCallback) = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
-    .apply { callback.attachPermissionLauncher(this) }
+//fun Fragment.registerPermissionLauncher(callback: PermissionCallback) = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(), callback)
+//    .apply { callback.attachPermissionLauncher(this) }
 
 
 fun registerPermissionLauncher(callback: PermissionCallback): ActivityResultLauncher<Array<String>> {
